@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/transaction-service/src/main/java/com/paypal/transactionservice/config/AppConfig.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/transaction-service/src/main/java/com/paypal/transactionservice/config/AppConfig.java" />
+              <option name="originalContent" value="package com.paypal.transactionservice.config;&#10;&#10;import org.springframework.context.annotation.Bean;&#10;import org.springframework.context.annotation.Configuration;&#10;import org.springframework.web.client.RestTemplate;&#10;&#10;@Configuration&#10;public class AppConfig {&#10;&#10;    @Bean&#10;    public RestTemplate restTemplate() { return new RestTemplate(); }&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="package com.paypal.transactionservice.config;&#10;&#10;import com.paypal.transactionservice.entity.Transaction;&#10;import org.apache.kafka.clients.producer.ProducerConfig;&#10;import org.apache.kafka.common.serialization.StringSerializer;&#10;import org.springframework.context.annotation.Bean;&#10;import org.springframework.context.annotation.Configuration;&#10;import org.springframework.kafka.core.DefaultKafkaProducerFactory;&#10;import org.springframework.kafka.core.KafkaTemplate;&#10;import org.springframework.kafka.core.ProducerFactory;&#10;import org.springframework.kafka.support.serializer.JsonSerializer;&#10;import org.springframework.web.client.RestTemplate;&#10;&#10;import java.util.HashMap;&#10;import java.util.Map;&#10;&#10;@Configuration&#10;public class AppConfig {&#10;&#10;    @Bean&#10;    public ProducerFactory&lt;String, Transaction&gt; producerFactory() {&#10;        Map&lt;String, Object&gt; configProps = new HashMap&lt;&gt;();&#10;        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;localhost:9092&quot;);&#10;        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);&#10;        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);&#10;        &#10;        // Add type mapping for JSON serialization&#10;        configProps.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);&#10;        &#10;        return new DefaultKafkaProducerFactory&lt;&gt;(configProps);&#10;    }&#10;&#10;    @Bean&#10;    public KafkaTemplate&lt;String, Transaction&gt; kafkaTemplate() {&#10;        return new KafkaTemplate&lt;&gt;(producerFactory());&#10;    }&#10;&#10;    @Bean&#10;    public RestTemplate restTemplate() { &#10;        return new RestTemplate(); &#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/transaction-service/src/main/resources/application.properties">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/transaction-service/src/main/resources/application.properties" />
+              <option name="updatedContent" value="# Kafka Configuration&#10;spring.kafka.bootstrap-servers=localhost:9092&#10;spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer&#10;spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer&#10;&#10;# Database Configuration (if needed)&#10;spring.datasource.url=jdbc:h2:mem:testdb&#10;spring.datasource.driverClassName=org.h2.Driver&#10;spring.datasource.username=sa&#10;spring.datasource.password=password&#10;spring.jpa.database-platform=org.hibernate.dialect.H2Dialect&#10;spring.h2.console.enabled=true&#10;spring.jpa.hibernate.ddl-auto=create-drop" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
